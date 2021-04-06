@@ -41,7 +41,7 @@ O JobsCalc é uma aplicação de estimativa de cálculo para projetos freelancer
 
 Você pode visualizar o layout do projeto através [desse link](https://www.figma.com/file/s4fytPFbDiSkv4GPSfKaLE/Jobs-Planning). É necessário ter conta no [Figma](https://figma.com) para acessá-lo.
 
-## Esse repositorio é minha versão de estudo pessoal da maratona Discover
+## Esse repositorio é minha versão de estudo pessoal da maratona Discover!
 `@SergioCorreaDosReis`
 
 ## :memo: Licença
