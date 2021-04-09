@@ -33,7 +33,7 @@ module.exports = {
     // ? se existir segue a logica senão/ ou segunda opção
     const lastId = jobs[jobs.length - 1]?.id || 0;
 
-    Jobs.push({
+    jobs.push({
       id: lastId + 1,
       name: req.body.name,
       "daily-hours": req.body["daily-hours"],
@@ -45,30 +45,34 @@ module.exports = {
   },
 
   show(req, res) {
+    const jobs = Job.get()  
     // params.[tem que ser mesmo nome que esta :id do get routes]
     const jobId = req.params.id;
     // função que retorna  resultado de busca se o id for igual
-    const job = Job.data.find((job) => Number(job.id) === Number(jobId));
+    const job = jobs.find((job) => Number(job.id) === Number(jobId));
 
     // Se Job não existir
     if (!job) {
       return res.send("Job not Found");
     }
+    
+    const profile = Profile.get()
 
-    job.budget = Job.services.calculateBudget(job, Profile.data["value-hour"]);
+    job.budget = JobUtils.calculateBudget(job, profile["value-hour"]);
 
     return res.render("job-edit", { job });
   },
 
   update(req, res) {
+    const jobs = Job.get()  
     // params.[tem que ser mesmo nome que esta :id do get routes]
     const jobId = req.params.id;
     // função que retorna  resultado de busca se o id for igual
-    const job = Job.data.find((job) => Number(job.id) === Number(jobId));
+    const job = jobs.find((job) => Number(job.id) === Number(jobId))
 
     // Se Job não existir
     if (!job) {
-      return res.send("Job not Found");
+      return res.send("Job not Found")
     }
 
     const updatedJob = {
@@ -77,24 +81,27 @@ module.exports = {
       name: req.body.name,
       "total-hours": req.body["total-hours"],
       "daily-hours": req.body["daily-hours"],
-    };
+    }
 
-    Job.data = Job.data.map((job) => {
+    const newJobs = jobs.map((job) => {
       if (Number(job.id) === Number(jobId)) {
-        job = updatedJob;
+        job = updatedJob
       }
 
-      return job;
-    });
+      return job
+    })
+
+    //Chama model Job e passa como para parametro do update o newJob
+    Job.update(newJobs)
 
     res.redirect("/job/" + jobId);
   },
 
   delete(req, res) {
-    const jobId = req.params.id;
-
-    Job.data = Job.data.filter((job) => Number(job.id) !== Number(jobId));
+    const jobId = req.params.id
+    
+    Job.delete(jobId)
 
     return res.redirect("/");
-  },
-};
+  }
+}
