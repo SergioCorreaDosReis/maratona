@@ -1,50 +1,7 @@
 const express = require("express");
 const routes = express.Router()
-
-
-const Profile = {
-    data: {
-        name: "Sergio",
-        avatar: "https://avatars.githubusercontent.com/u/29148210?v=4",
-        "monthly-budget": 3000,
-        "days-per-week": 4,
-        "hours-per-day": 6,
-        "vacation-per-year": 4,
-        "value-hour": 75,
-    },
-
-    controllers: {
-        index(req, res) {
-            return res.render("profile", { profile: Profile.data })
-        },
-
-        update(req, res) {
-            // re.body para pegar os dados
-            const data = req.body
-            // Definir quantas semanas tem em um ano = 52
-            const weekPerYear = 52
-            // Remover as semanas de férias do ano, para pegar quantas semanas tem em um mês
-            const weekPerMonth = (weekPerYear - data["vacation-per-year"]) / 12
-            // Horas por semana eu estou trabalhando
-            const weekTotalHours = data["hours-per-day"] * data["days-per-week"]
-            // Total de horas trabalhadas por mes
-            const monthlyTotalHours = weekTotalHours * weekPerMonth
-
-            // Valor da hora de trabalho
-            const valueHour = data["monthly-budget"] / monthlyTotalHours
-
-            Profile.data = {
-                ...Profile.data,
-                ...req.body,
-                "value-hour": valueHour
-
-
-            }
-            return res.redirect("/profile")
-
-        }
-    }
-}
+const ProfileController = require("./controllers/ProfileController")
+const Profile = require("./model/Profile")
 
 const Job = {
     data: [
@@ -199,16 +156,8 @@ routes.post('/job', Job.controllers.save)
 routes.get('/job/:id', Job.controllers.show)
 routes.post('/job/:id', Job.controllers.update)
 routes.post('/job/delete/:id', Job.controllers.delete)
-routes.get('/profile', Profile.controllers.index)
-routes.post('/profile', Profile.controllers.update)
-
-
-
-
-
-
-
-
+routes.get('/profile', ProfileController.index)
+routes.post('/profile', ProfileController.update)
 
 // devolve o  routes
 module.exports = routes;
