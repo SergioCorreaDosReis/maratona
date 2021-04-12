@@ -1,13 +1,12 @@
 const express = require("express");
 const routes = express.Router()
 const ProfileController = require("./controllers/ProfileController")
-const JobController = require("./controllers/JobController")
-// const Profile = require("./model/Profile")
-
+const JobController = require("./controllers/JobController");
+const DashboardController = require("./controllers/DashboardController");
 
 // request, response
 // Lista de Rotas Get e Posts
-routes.get('/', JobController.index)
+routes.get('/', DashboardController.index)
 routes.get('/job', JobController.create)
 routes.post('/job', JobController.save)
 routes.get('/job/:id', JobController.show)

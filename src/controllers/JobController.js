@@ -3,27 +3,6 @@ const JobUtils = require("../utils/JobUtils")
 const Profile = require("../model/Profile")
 
 module.exports = {
-  index(req, res) {
-    const jobs = Job.get()
-    const profile = Profile.get()
-
-    const updatedJobs = jobs.map((job) => {
-      // Pega o JobUtils onde esta no Calculo
-      const remaining = JobUtils.remainingDays(job)
-      const status = remaining <= 0 ? "done" : "progres"
-
-      return {
-        // ... espelhando o no caso job, ou seja tras tudo que tem dentro do job
-        ...job,
-        remaining,
-        status,
-        budget: JobUtils.calculateBudget(job, profile["value-hour"]),
-      }
-    })
-    // {jobs: updatedJobs} quer dizer que o novo valor do jobs é o atualizado
-    return res.render("index", { jobs: updatedJobs });
-  },
-
   create(req, res) {
     return res.render("job");
   },
