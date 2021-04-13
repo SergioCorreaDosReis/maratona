@@ -3,9 +3,10 @@ const JobUtils = require("../utils/JobUtils")
 const Profile = require("../model/Profile")
 
 module.exports = {
-    index(req, res) {
+    async index(req, res) {
         const jobs = Job.get()
-        const profile = Profile.get()
+        // await serve para informar que ele tem esperar todo comando ser executado para ele seguir com a sequencia do código
+        const profile = await Profile.get()
 
         // indicadores de qtd por status do painel do indice
         let statusCount = {
@@ -46,16 +47,16 @@ module.exports = {
         // MENOS 
         // qtd de horas de cada job/dia em "progress"
 
-       
+
 
         const freeHours = profile["hours-per-day"] - jobTotalHours
 
         // {jobs: updatedJobs} quer dizer que o novo valor do jobs é o atualizado
         // mesma logicva para profile:profile
-        return res.render("index", { 
-            jobs: updatedJobs, 
-            profile: profile, 
-            statusCount: statusCount, 
+        return res.render("index", {
+            jobs: updatedJobs,
+            profile: profile,
+            statusCount: statusCount,
             freeHours: freeHours
         });
     }
