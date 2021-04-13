@@ -4,7 +4,7 @@ const Profile = require("../model/Profile")
 
 module.exports = {
     async index(req, res) {
-        const jobs = Job.get()
+        const jobs = await Job.get()
         // await serve para informar que ele tem esperar todo comando ser executado para ele seguir com a sequencia do código
         const profile = await Profile.get()
 
@@ -46,9 +46,6 @@ module.exports = {
         // qtd de horas almejo trabalhar em dias, informação esta no profile 
         // MENOS 
         // qtd de horas de cada job/dia em "progress"
-
-
-
         const freeHours = profile["hours-per-day"] - jobTotalHours
 
         // {jobs: updatedJobs} quer dizer que o novo valor do jobs é o atualizado

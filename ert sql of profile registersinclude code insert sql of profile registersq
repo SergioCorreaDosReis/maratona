@@ -1,0 +1,13 @@
+[33m946f60c[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m include code insert sql of profile registers
+[33m79dbbdf[m include database sripts and codes
+[33m4b57d11[m Refactor method save of the  newJob
+[33maffbe8f[m Include more refactor codes
+[33m79e5452[m Refactor codes JobController, Jobs, and JobsUtil
+[33mc106ae5[m Update sample image of system running
+[33m9fed02e[m partial refactor code v2
+[33mb21f6ac[m Parcial refactor code
+[33mefc72c3[m put code in mvp standard
+[33md6dea52[m refactor code of routes.js and server.js files
+[33m35ed1dc[m Update README.md on Web
+[33mcf60810[m add new features in README.md
+[33m1bf714c[m initial commit

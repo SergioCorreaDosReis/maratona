@@ -7,24 +7,19 @@ module.exports = {
     return res.render("job");
   },
 
-  save(req, res) {
-    const jobs = Job.get()  
-    // ? se existir segue a logica senão/ ou segunda opção
-    const lastId = jobs[jobs.length - 1]?.id || 0;
-
-    Job.create({
-      id: lastId + 1,
+  async save(req, res) {
+    await Job.create({
       name: req.body.name,
       "daily-hours": req.body["daily-hours"],
       "total-hours": req.body["total-hours"],
-      createdAt: Date.now(),
+      createdAt: Date.now()
     })
 
     return res.redirect("/");
   },
 
-  show(req, res) {
-    const jobs = Job.get()  
+  async show(req, res) {
+    const jobs = await Job.get()
     // params.[tem que ser mesmo nome que esta :id do get routes]
     const jobId = req.params.id;
     // função que retorna  resultado de busca se o id for igual
@@ -34,16 +29,16 @@ module.exports = {
     if (!job) {
       return res.send("Job not Found");
     }
-    
-    const profile = Profile.get()
+
+    const profile = await Profile.get()
 
     job.budget = JobUtils.calculateBudget(job, profile["value-hour"]);
 
     return res.render("job-edit", { job });
   },
 
-  update(req, res) {
-    const jobs = Job.get()  
+  async update(req, res) {
+    const jobs = await Job.get()
     // params.[tem que ser mesmo nome que esta :id do get routes]
     const jobId = req.params.id;
     // função que retorna  resultado de busca se o id for igual
@@ -78,7 +73,7 @@ module.exports = {
 
   delete(req, res) {
     const jobId = req.params.id
-    
+
     Job.delete(jobId)
 
     return res.redirect("/");
