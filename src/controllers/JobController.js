@@ -38,35 +38,18 @@ module.exports = {
   },
 
   async update(req, res) {
-    const jobs = await Job.get()
     // params.[tem que ser mesmo nome que esta :id do get routes]
     const jobId = req.params.id;
-    // função que retorna  resultado de busca se o id for igual
-    const job = jobs.find((job) => Number(job.id) === Number(jobId))
-
-    // Se Job não existir
-    if (!job) {
-      return res.send("Job not Found")
-    }
 
     const updatedJob = {
-      ...job,
       // Trecho abaixo sobrescreve campos name, total.. com req.body
       name: req.body.name,
       "total-hours": req.body["total-hours"],
       "daily-hours": req.body["daily-hours"],
     }
 
-    const newJobs = jobs.map((job) => {
-      if (Number(job.id) === Number(jobId)) {
-        job = updatedJob
-      }
-
-      return job
-    })
-
     //Chama model Job e passa como para parametro do update o newJob
-    Job.update(newJobs)
+    await Job.update(updatedJob, jobId)
 
     res.redirect("/job/" + jobId);
   },
