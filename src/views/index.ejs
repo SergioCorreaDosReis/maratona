@@ -23,6 +23,7 @@
     rel="stylesheet" />
 
   <script src="scripts/index.js" defer type="module"></script>
+  
 </head>
 
 <body id="page-index">
@@ -101,7 +102,13 @@
               <p>R$ <%= job.budget.toFixed(2).replace(".",",") %> 
               </p>
             </div>
+            <div class="date column">
+              <span>Data de Cadastro</span>
+             <p><%= job.createdAt.getDate()%>/<%= job.createdAt.getMonth()%>/<%= job.createdAt.getFullYear()%>
+              </p>
+            </div>
             <div class="status badge column">
+              
               <%= job.status === "done" ? "Encerrado" : "Em andamento" %> 
             </div>
             <div class="actions column flex">

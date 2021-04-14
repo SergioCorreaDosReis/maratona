@@ -14,7 +14,8 @@ module.exports = {
             name: job.name,
             "daily-hours": job.daily_hours,
             "total-hours": job.total_hours,
-            createdAt: job.createdAt
+            // createdAt: job.createdAt,
+            createdAt: new Date(job.createdAt)
         }))
     },
     async update(updatedJob, jobId) {
