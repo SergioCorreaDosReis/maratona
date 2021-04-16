@@ -65,7 +65,10 @@ Depois para "startar" o servidor basta executar o comando
 ```bash
 npm run dev
 ```
-
+Para visualizar o sistema va no seu broswer de preferencia e digite
+```html
+http://localhost:3000/
+```
 
 
 
